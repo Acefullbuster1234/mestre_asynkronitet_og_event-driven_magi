@@ -1,5 +1,6 @@
-### GET request to example server
-GET https://examples.http-client.intellij.net/get
-    ?generated-in=WebStorm
+POST http://localhost:3000/write-file
+Content-Type: application/json
 
-###
+{
+  "content": "Ny tekst til filen"
+}
