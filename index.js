@@ -1,8 +1,20 @@
 const express = require('express');
 const fs = require('node:fs/promises');
+const EventEmitter = require('node:events')
 
 const app = express();
+const emitter = new EventEmitter();
+
+emitter.on('request', ({ method, url }) => {
+    console.log(`${new Date().toISOString()} - ${method} ${url}`);
+});
+
 app.use(express.json());
+app.use((req, res, next) => {
+    emitter.emit('request', { method: req.method, url: req.url });
+    next();
+});
+
 
 
 app.get('/', (req, res) => {
